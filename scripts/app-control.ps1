@@ -9,7 +9,10 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $projectRoot = [IO.Path]::GetFullPath((Split-Path -Parent $PSScriptRoot))
-$pythonPath = Join-Path $projectRoot '.venv\Scripts\python.exe'
+$pythonPath = Join-Path $projectRoot 'runtime\python.exe'
+if (-not (Test-Path -LiteralPath $pythonPath)) {
+    $pythonPath = Join-Path $projectRoot '.venv\Scripts\python.exe'
+}
 $runtimeDirectory = Join-Path $projectRoot 'data\runtime'
 $statePath = Join-Path $runtimeDirectory 'launcher.json'
 $baseUrl = "http://127.0.0.1:$Port"
